@@ -9,7 +9,8 @@ from collections import deque
 def main():
     ic(cipher("meet me on Tuesday evening at seven", "vigilance"))
     ic(cipher("'hmkb xe bp xpmylly rxiiqto lt fgzzv'", "vigilance", True))
-
+    ic(cipher("the package has been delivered", "snitch"))
+    ic(cipher("" ,""))
 
 def cipher(original_message: str, key: str, decipher: bool = False) -> str:
     """Return the ciphered or deciphered message of the input message using the input key to alter the original message.
@@ -19,7 +20,7 @@ def cipher(original_message: str, key: str, decipher: bool = False) -> str:
     :param decipher: A flag to indicate if the message should be deciphered or not.
     """
     # Validating if the message or key are valid strings (not empty, contain letters only (English alphabet))
-    if not validate_inputs(original_message, key):
+    if validate_inputs(original_message, key) is True:
         return "Invalid input message or key."
 
     # We create a deque containing the alphabet letters (lowercase).
@@ -70,12 +71,12 @@ def validate_inputs(original_message: str, key: str) -> bool:
     :param key: The key to use to cipher or decipher the message.
     """
     if not original_message or not key:
-        return False
+        return True
 
-    if not original_message.isalpha() or not key.isalpha():
-        return False
+    if not key.isalpha():
+        return True
 
-    return True
+    return False
 
 if __name__ == "__main__":
     main()
