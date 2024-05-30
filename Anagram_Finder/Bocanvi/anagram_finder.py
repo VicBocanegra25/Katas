@@ -6,24 +6,21 @@ any anagrams should not be included in the result."""
 
 def main() -> None:
     possible_anagrams: list[str] = ["veer", "lake", "item", "kale", "mite", "ever"]
-    anagrams: list[set] = anagram_finder(possible_anagrams)
-    print(anagrams)
+    possible_anagrams_2: list[str] = ["meat", "mat", "team", "mate", "eat"]
+    print(anagram_finder(possible_anagrams))
+    print(anagram_finder(possible_anagrams_2))
 
 
-def anagram_finder(possible_anagrams_) -> list[set]:
-    """This solution transforms the list of words and calculates its ord value. It then compares it to the current"""
-    final_anagrams: list[set] = []
-    while possible_anagrams_:
-        anagram_list_found: set = set()
-        current_word: str = possible_anagrams_.pop()
-        for word in possible_anagrams_:
-            if len(current_word) == len(word) and sum(map(ord, current_word)) == sum(map(ord, word)):
-                anagram_list_found.add(word)
-                anagram_list_found.add(current_word)
-                possible_anagrams_.remove(word)
-        final_anagrams.append(set(anagram_list_found))
-        final_anagrams = list(filter(lambda x: len(x) > 1, final_anagrams))
-    return final_anagrams
+def anagram_finder(possible_anagrams_list: list[str]) -> list[list[str]]:
+    """This second version takes a list of strings. It takes the strings, sorts them, and compares them to each other
+    to create a list of anagrams."""
+    possible_anagram_dict: dict = {}
+    # The keyword in looks for keys in the dictionary.
+    for word in possible_anagrams_list:
+        sorted_word = "".join(sorted(word))
+        possible_anagram_dict.setdefault(sorted_word, []).append(word)
+
+    return [anagram_group for anagram_group in possible_anagram_dict.values() if len(anagram_group) > 1]
 
 
 if __name__ == "__main__":
